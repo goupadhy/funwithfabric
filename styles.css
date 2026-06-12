@@ -92,6 +92,50 @@ img {
 }
 
 /* =============================================
+   VISITOR COUNTER BANNER
+   ============================================= */
+.visit-banner {
+  background: linear-gradient(90deg, #0E5C4F 0%, #117865 50%, #2AC2A0 100%);
+  color: #fff;
+  font-size: 0.82rem;
+  line-height: 1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+.visit-banner-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.55rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.9rem;
+  justify-content: flex-end;
+  align-items: center;
+}
+.visit-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.65rem;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  letter-spacing: 0.01em;
+  backdrop-filter: blur(2px);
+  white-space: nowrap;
+}
+.visit-pill strong {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+.visit-pill svg { opacity: 0.85; }
+
+@media (max-width: 480px) {
+  .visit-banner-inner { justify-content: center; }
+  .visit-pill { font-size: 0.78rem; padding: 0.25rem 0.55rem; }
+}
+
+/* =============================================
    HEADER / NAV
    ============================================= */
 .site-header {

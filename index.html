@@ -21,6 +21,30 @@
   <a href="#main" class="skip-link">Skip to main content</a>
 
   <!-- =============================================
+       VISITOR COUNTER BANNER
+       ============================================= -->
+  <div class="visit-banner" role="status" aria-live="polite" aria-label="Site visitor counter">
+    <div class="visit-banner-inner">
+      <span class="visit-pill" title="Total site visits (all visitors)">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        <span>Total visits:</span>
+        <strong id="visit-count-total">…</strong>
+      </span>
+      <span class="visit-pill visit-pill-you" title="Your visits to this site (stored locally in your browser)">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>Your visits:</span>
+        <strong id="visit-count-you">…</strong>
+      </span>
+    </div>
+  </div>
+
+  <!-- =============================================
        HEADER
        ============================================= -->
   <header class="site-header" role="banner">
@@ -505,6 +529,7 @@
   <script src="data.js"></script>
   <script src="script.js"></script>
   <script src="fun.js"></script>
+  <script src="visits.js"></script>
   <script src="chatbot.js"></script>
 
 </body>
