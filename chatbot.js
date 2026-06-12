@@ -112,6 +112,21 @@
         '• Great for unifying data across clouds and reusing curated datasets across workspaces.',
       chips: ['What is OneLake?', 'Lakehouse vs Warehouse'],
     },
+    {
+      id: 'medallion',
+      keywords: [
+        'medallion', 'bronze silver gold', 'bronze/silver/gold',
+        'lakehouse architecture', 'medallion architecture', 'medallion lakehouse',
+      ],
+      html:
+        '<strong>Medallion lakehouse architecture</strong> is the recommended design pattern for Microsoft Fabric on OneLake. It organizes data into three quality layers:<br><br>' +
+        '• <strong>Bronze (Raw)</strong> — land data exactly as it arrives. Source of truth, no changes.<br>' +
+        '• <strong>Silver (Enriched)</strong> — clean, conform, deduplicate, join across sources.<br>' +
+        '• <strong>Gold (Curated)</strong> — business-ready aggregates and marts for BI / ML.<br><br>' +
+        'All three layers are typically stored as Delta tables in OneLake. A common deployment is one Lakehouse per layer (or Lakehouse for Bronze/Silver and Warehouse for Gold), each in its own workspace for governance.<br><br>' +
+        'See: <a href="https://learn.microsoft.com/en-us/fabric/onelake/onelake-medallion-lakehouse-architecture" target="_blank" rel="noopener noreferrer">Medallion lakehouse architecture on Microsoft Learn ↗</a>',
+      chips: ['What is OneLake?', 'Lakehouse vs Warehouse', 'What is Direct Lake?'],
+    },
   ];
 
   // ---------- Textile knowledge base ----------
