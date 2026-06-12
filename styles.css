@@ -870,6 +870,308 @@ img {
 }
 
 /* =============================================
+   FUN ZONE — animation + quiz
+   ============================================= */
+.fun-section {
+  position: relative;
+  overflow: hidden;
+  padding: 4.5rem 0 5rem;
+  background:
+    radial-gradient(1200px 400px at 50% -10%, rgba(42, 194, 160, 0.18), transparent 70%),
+    linear-gradient(180deg, #ffffff 0%, #f4fbf8 100%);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.fun-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.fun-bg .fun-emoji {
+  position: absolute;
+  top: 100%;
+  font-size: clamp(20px, 2.4vw, 32px);
+  opacity: 0.55;
+  filter: saturate(1.1);
+  animation: funFloat 14s linear infinite;
+  animation-delay: calc(var(--i) * -1.4s);
+  left: calc((var(--i) + 1) * 9.2%);
+}
+@keyframes funFloat {
+  0%   { transform: translate(0, 0) rotate(0deg);    opacity: 0; }
+  10%  { opacity: .55; }
+  90%  { opacity: .55; }
+  100% { transform: translate(40px, -120vh) rotate(360deg); opacity: 0; }
+}
+
+.fun-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.fun-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.fun-card {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 1.75rem 1.5rem 1.5rem;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 12px 32px rgba(17, 120, 101, 0.10);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ---------- Animation card ---------- */
+.fun-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.4 / 1;
+  min-height: 320px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at center, rgba(42, 194, 160, 0.10), transparent 65%);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.orbit {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  animation: orbitSpin 22s linear infinite;
+}
+@keyframes orbitSpin {
+  to { transform: rotate(360deg); }
+}
+
+.orbit-core {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  gap: 4px;
+  box-shadow:
+    0 0 0 6px rgba(42, 194, 160, 0.12),
+    0 0 0 14px rgba(42, 194, 160, 0.06),
+    0 6px 24px rgba(14, 92, 79, 0.25);
+  animation: orbitSpin 22s linear infinite reverse; /* keep label upright */
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--color-primary, #117865);
+  text-align: center;
+}
+.orbit-core svg {
+  width: 32px;
+  height: 32px;
+}
+
+.orbit-tile {
+  --n: 0;
+  --count: 6;
+  --radius: 130px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 92px;
+  margin: -28px 0 0 -46px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 0.5rem 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-align: center;
+  color: #0E5C4F;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid rgba(17, 120, 101, 0.2);
+  box-shadow: 0 4px 12px rgba(14, 92, 79, 0.14);
+  transform-origin: center;
+  transform:
+    rotate(calc(var(--n) * (360deg / 6)))
+    translate(var(--radius))
+    rotate(calc(var(--n) * (-360deg / 6)));
+  animation: orbitSpin 22s linear infinite reverse;
+}
+.orbit-tile span { display: block; }
+.orbit-tile:first-child { font-size: 1.2rem; }
+
+.fun-tagline {
+  margin: 0;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+.fun-tagline em { color: var(--color-primary, #117865); font-style: normal; }
+
+/* ---------- Quiz card ---------- */
+.quiz-header { display: flex; flex-direction: column; gap: 0.5rem; }
+.quiz-progress-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+.quiz-score {
+  font-weight: 700;
+  color: var(--color-primary, #117865);
+}
+.quiz-progress {
+  height: 6px;
+  background: rgba(17, 120, 101, 0.10);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.quiz-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #2AC2A0 0%, #117865 100%);
+  transition: width 300ms ease;
+}
+
+.quiz-question {
+  margin: 1rem 0 0.75rem;
+  font-family: var(--font-display, var(--font-family));
+  font-weight: 600;
+  font-size: 1.15rem;
+  line-height: 1.35;
+  color: var(--color-text);
+}
+
+.quiz-options {
+  display: grid;
+  gap: 0.55rem;
+  margin-bottom: 0.75rem;
+}
+.quiz-option {
+  text-align: left;
+  padding: 0.75rem 0.9rem;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  background: #fff;
+  border: 1.5px solid var(--color-border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, transform 120ms ease;
+}
+.quiz-option:hover:not(:disabled) {
+  background: rgba(42, 194, 160, 0.07);
+  border-color: rgba(17, 120, 101, 0.45);
+  transform: translateX(2px);
+}
+.quiz-option:disabled { cursor: default; }
+.quiz-option.is-correct {
+  background: rgba(46, 160, 67, 0.10);
+  border-color: #2EA043;
+  color: #0e6b1e;
+  font-weight: 600;
+}
+.quiz-option.is-wrong {
+  background: rgba(216, 59, 1, 0.08);
+  border-color: #D83B01;
+  color: #8c2400;
+  font-weight: 600;
+  animation: shake 0.35s ease;
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
+
+.quiz-feedback {
+  min-height: 1.4rem;
+  margin: 0.25rem 0 0.75rem;
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+.quiz-feedback.is-correct { color: #0e6b1e; }
+.quiz-feedback.is-wrong   { color: #8c2400; }
+
+.quiz-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Result panel */
+.quiz-result {
+  position: relative;
+  text-align: center;
+  padding: 1.25rem 0.5rem 0.5rem;
+  animation: fadeUp 360ms ease both;
+}
+.quiz-trophy {
+  font-size: 3rem;
+  line-height: 1;
+  animation: pop 600ms cubic-bezier(.2, 1.2, .4, 1) both;
+}
+@keyframes pop {
+  0%   { transform: scale(.4) rotate(-10deg); opacity: 0; }
+  60%  { transform: scale(1.15) rotate(4deg);  opacity: 1; }
+  100% { transform: scale(1)    rotate(0deg);  opacity: 1; }
+}
+.quiz-result h3 {
+  margin: 0.4rem 0 0.25rem;
+  font-family: var(--font-display, var(--font-family));
+  font-size: 1.4rem;
+  color: var(--color-primary, #117865);
+}
+.quiz-result-sub { margin: 0 0 0.5rem; color: var(--color-text-muted); }
+.quiz-final-score { margin: 0.25rem 0 1rem; font-size: 1.05rem; }
+
+/* Confetti */
+.confetti-dot {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  width: 8px;
+  height: 12px;
+  background: var(--hue, #117865);
+  border-radius: 2px;
+  transform: translate(-50%, 0) rotate(0deg);
+  animation: confetti 1.2s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes confetti {
+  to {
+    transform: translate(calc(-50% + var(--dx)), var(--dy)) rotate(var(--rot));
+    opacity: 0;
+  }
+}
+
+@media (max-width: 860px) {
+  .fun-grid { grid-template-columns: 1fr; }
+  .fun-stage { min-height: 280px; }
+  .orbit { width: 240px; height: 240px; }
+  .orbit-tile { --radius: 110px; }
+}
+
+/* =============================================
    CUSTOMER SUCCESS STORIES
    ============================================= */
 .customers-section {
