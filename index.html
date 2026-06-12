@@ -322,11 +322,19 @@
       <div class="section-header">
         <span class="section-eyebrow">Pick the right tool</span>
         <h2 id="decide-heading">Help Me Decide</h2>
-        <p>Answer 4 quick questions and we'll highlight the best Fabric data-movement option for your scenario — Mirroring, Copy Job, Copy activity in Pipelines, or Eventstreams.</p>
+        <p>Two quick pickers for two common Fabric decisions. Answer the questions in each — we'll highlight the best fit.</p>
       </div>
 
+      <!-- ------------- DECIDER 1: DATA MOVEMENT ------------- -->
+      <div class="decide-block" data-decider="movement">
+        <h3 class="decide-subhead">
+          <span class="decide-subhead-num">1</span>
+          Data movement
+          <span class="decide-subhead-sub">Mirroring · Copy Job · Pipelines · Eventstreams</span>
+        </h3>
+
       <!-- Questions -->
-      <div class="decide-questions" id="decide-questions">
+      <div class="decide-questions">
         <fieldset class="decide-q" data-q="latency">
           <legend><span class="decide-q-num">1</span> What's your latency need?</legend>
           <div class="decide-chips">
@@ -366,14 +374,14 @@
       </div>
 
       <!-- Recommendation banner -->
-      <div class="decide-result" id="decide-result" role="status" aria-live="polite">
+      <div class="decide-result" role="status" aria-live="polite">
         <span class="decide-result-label">Our pick:</span>
-        <strong id="decide-pick">Answer the questions to see a recommendation</strong>
-        <button type="button" class="decide-reset" id="decide-reset" hidden>Reset</button>
+        <strong class="decide-pick">Answer the questions to see a recommendation</strong>
+        <button type="button" class="decide-reset" hidden>Reset</button>
       </div>
 
       <!-- Option cards (recommended one gets highlighted) -->
-      <div class="decide-cards" id="decide-cards">
+      <div class="decide-cards">
         <article class="decide-card" data-key="mirroring" tabindex="0">
           <div class="decide-card-head" style="--accent:#2AC2A0;">
             <span class="decide-card-badge">Mirroring</span>
@@ -422,6 +430,104 @@
           <a class="decide-card-link" href="https://learn.microsoft.com/en-us/fabric/real-time-intelligence/event-streams/overview" target="_blank" rel="noopener">Learn about Eventstreams ↗</a>
         </article>
       </div>
+      </div>
+      <!-- /DECIDER 1 -->
+
+      <hr class="decide-divider" aria-hidden="true" />
+
+      <!-- ------------- DECIDER 2: DATA GATEWAY ------------- -->
+      <div class="decide-block" data-decider="gateway">
+        <h3 class="decide-subhead">
+          <span class="decide-subhead-num">2</span>
+          Data gateway
+          <span class="decide-subhead-sub">On-prem · VNet · Cloud direct</span>
+        </h3>
+
+        <!-- Questions -->
+        <div class="decide-questions">
+          <fieldset class="decide-q" data-q="location">
+            <legend><span class="decide-q-num">1</span> Where does the data live?</legend>
+            <div class="decide-chips">
+              <button type="button" class="decide-chip" data-v="onprem">On-premises / private data center</button>
+              <button type="button" class="decide-chip" data-v="vnet">Azure (behind a VNet / private endpoint)</button>
+              <button type="button" class="decide-chip" data-v="public">Public cloud SaaS or public endpoint</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="decide-q" data-q="access">
+            <legend><span class="decide-q-num">2</span> Is the source reachable from the public internet?</legend>
+            <div class="decide-chips">
+              <button type="button" class="decide-chip" data-v="private">No — must stay private</button>
+              <button type="button" class="decide-chip" data-v="public">Yes — public endpoint is fine</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="decide-q" data-q="mgmt">
+            <legend><span class="decide-q-num">3</span> Will you run / patch a gateway server?</legend>
+            <div class="decide-chips">
+              <button type="button" class="decide-chip" data-v="run">Yes — I'll install on a Windows VM</button>
+              <button type="button" class="decide-chip" data-v="none">No — fully managed only</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="decide-q" data-q="sourcekind">
+            <legend><span class="decide-q-num">4</span> What's the source platform?</legend>
+            <div class="decide-chips">
+              <button type="button" class="decide-chip" data-v="winenterprise">On-prem SQL Server, file share, SAP, Oracle</button>
+              <button type="button" class="decide-chip" data-v="azurepaas">Azure PaaS with private endpoint (SQL, Storage, Synapse)</button>
+              <button type="button" class="decide-chip" data-v="saas">SaaS / cloud-native (Snowflake, BigQuery, Salesforce, Dataverse)</button>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Recommendation banner -->
+        <div class="decide-result" role="status" aria-live="polite">
+          <span class="decide-result-label">Our pick:</span>
+          <strong class="decide-pick">Answer the questions to see a recommendation</strong>
+          <button type="button" class="decide-reset" hidden>Reset</button>
+        </div>
+
+        <!-- Option cards -->
+        <div class="decide-cards">
+          <article class="decide-card" data-key="opdg" tabindex="0">
+            <div class="decide-card-head" style="--accent:#117865;">
+              <span class="decide-card-badge">On-premises data gateway</span>
+              <span class="decide-card-tagline">Bridge to your network</span>
+            </div>
+            <p>A bridge between Fabric / Power BI cloud services and data behind your firewall. <strong>You install it on a Windows VM</strong> in your network. Supports many sources — SQL Server, file shares, SAP, Oracle, Teradata, and more.</p>
+            <ul class="decide-card-tags">
+              <li>Windows VM</li><li>On-prem sources</li><li>Standard / Personal</li><li>You patch it</li>
+            </ul>
+            <a class="decide-card-link" href="https://learn.microsoft.com/en-us/data-integration/gateway/service-gateway-onprem" target="_blank" rel="noopener">Learn about the on-premises data gateway ↗</a>
+          </article>
+
+          <article class="decide-card" data-key="vnet" tabindex="0">
+            <div class="decide-card-head" style="--accent:#0078D4;">
+              <span class="decide-card-badge">VNet data gateway</span>
+              <span class="decide-card-tagline">Managed, private to Azure</span>
+            </div>
+            <p>A <strong>fully managed Microsoft-hosted gateway</strong> that connects to Azure data sources behind a virtual network via subnet delegation. No VM to install, no patching — and traffic stays on the Microsoft backbone.</p>
+            <ul class="decide-card-tags">
+              <li>Managed</li><li>Azure VNet</li><li>Private endpoint</li><li>No VM</li>
+            </ul>
+            <a class="decide-card-link" href="https://learn.microsoft.com/en-us/data-integration/vnet/overview" target="_blank" rel="noopener">Learn about VNet data gateways ↗</a>
+          </article>
+
+          <article class="decide-card" data-key="cloud" tabindex="0">
+            <div class="decide-card-head" style="--accent:#2AC2A0;">
+              <span class="decide-card-badge">Cloud direct connection</span>
+              <span class="decide-card-tagline">No gateway needed</span>
+            </div>
+            <p>Connect directly from Fabric to a <strong>publicly reachable cloud source</strong> — Snowflake, BigQuery, Azure SQL public endpoint, Salesforce, Dataverse, and others. Fastest setup; authentication still applies, but no gateway component to deploy or manage.</p>
+            <ul class="decide-card-tags">
+              <li>No gateway</li><li>Public endpoint</li><li>SaaS / cloud-native</li><li>Zero infra</li>
+            </ul>
+            <a class="decide-card-link" href="https://learn.microsoft.com/en-us/fabric/data-factory/connector-overview" target="_blank" rel="noopener">Learn about Fabric connectors ↗</a>
+          </article>
+        </div>
+      </div>
+      <!-- /DECIDER 2 -->
+
     </div>
   </section>
 
