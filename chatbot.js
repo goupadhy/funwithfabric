@@ -5,7 +5,116 @@
 (function () {
   'use strict';
 
-  // ---------- Knowledge base ----------
+  // ---------- Microsoft Fabric platform Q&A ----------
+  // Each entry: keywords (used for scoring) + html answer + optional follow-up chips.
+  const FABRIC_TOPICS = [
+    {
+      id: 'copy-job',
+      keywords: ['copy job', 'copyjob', 'copy-job'],
+      html:
+        '<strong>Copy Job</strong> is a Microsoft Fabric Data Factory item designed for simple, code-free <em>data movement</em> between sources and destinations.<br><br>' +
+        '<strong>Key traits</strong><br>' +
+        '• Built for ingestion — no transformations or orchestration logic.<br>' +
+        '• Supports <em>full</em> and <em>incremental</em> copy patterns.<br>' +
+        '• Works with many cloud and on-prem connectors via gateways.<br>' +
+        '• Lighter and faster to author than a full Data Pipeline for plain copy work.<br><br>' +
+        '<strong>When to use it</strong><br>' +
+        '• Bring data into OneLake / a Lakehouse / Warehouse on a schedule.<br>' +
+        '• Incremental loads from a source table using a watermark column.<br>' +
+        '• You don’t need branching, conditional logic, or multi-activity flows.<br><br>' +
+        '<strong>When to pick a Data Pipeline instead</strong>: you need conditional branches, looping, parameterized child pipelines, or activities beyond copy (Notebook, Stored Procedure, Dataflow, etc.).',
+      chips: ['Copy Job vs Data Pipeline', 'On-prem vs VNet data gateway', 'What is OneLake?'],
+    },
+    {
+      id: 'copy-job-vs-pipeline',
+      keywords: ['copy job vs pipeline', 'copy job or pipeline', 'data pipeline vs copy job', 'pipeline vs copy job'],
+      html:
+        '<strong>Copy Job vs Data Pipeline</strong><br><br>' +
+        '<strong>Copy Job</strong> — single-purpose copy tool. Pick it when the task is <em>just move data</em>, optionally incremental, with no branching.<br><br>' +
+        '<strong>Data Pipeline</strong> — orchestrator. Pick it when you need:<br>' +
+        '• Multiple activities (Copy + Notebook + Stored Procedure + Dataflow).<br>' +
+        '• Conditional branches (If/Switch) or loops (ForEach/Until).<br>' +
+        '• Parameters, variables, expressions, dependency chains.<br>' +
+        '• Calling child pipelines or external services.<br><br>' +
+        'Rule of thumb: start with Copy Job; graduate to a Data Pipeline once you need more than “copy from A to B”.',
+      chips: ['What is Copy Job?', 'What is a Dataflow Gen2?', 'On-prem vs VNet data gateway'],
+    },
+    {
+      id: 'gateway-comparison',
+      keywords: [
+        'onprem vs vnet', 'on-prem vs vnet', 'on prem vs vnet',
+        'gateway vs', 'data gateway vs', 'vnet data gateway',
+        'on-premises data gateway', 'onprem data gateway', 'on premises data gateway',
+        'when to use gateway', 'which gateway', 'gateway comparison',
+      ],
+      html:
+        '<strong>On-premises data gateway vs VNet data gateway</strong><br><br>' +
+        '<strong>On-premises data gateway</strong> — software you install on a Windows machine inside your corporate network. It bridges Fabric / Power BI / Logic Apps to data that lives <em>behind your firewall</em>.<br>' +
+        '• Use it for: SQL Server on-prem, Oracle, SAP, file shares, REST APIs reachable only from inside your network.<br>' +
+        '• You manage the host VM, updates, and high availability (cluster nodes).<br><br>' +
+        '<strong>Virtual network (VNet) data gateway</strong> — a <em>fully managed</em> gateway provisioned by Microsoft into your Azure VNet. No VM to maintain.<br>' +
+        '• Use it for: Azure data sources locked down with <em>private endpoints</em> or accessible only from a VNet (Azure SQL DB, Synapse, Storage, Key Vault, Azure Databricks).<br>' +
+        '• No on-prem network involved — it lives entirely in Azure.<br><br>' +
+        '<strong>Quick decision</strong><br>' +
+        '• Source is in your data center → <strong>on-prem gateway</strong>.<br>' +
+        '• Source is Azure with public endpoints → <strong>no gateway needed</strong>.<br>' +
+        '• Source is Azure but private (private endpoint / VNet only) → <strong>VNet gateway</strong>.<br>' +
+        '• Mix of both → use both, in their respective scenarios.',
+      chips: ['What is Copy Job?', 'What is OneLake?', 'What is a Dataflow Gen2?'],
+    },
+    {
+      id: 'onelake',
+      keywords: ['onelake', 'one lake', 'what is onelake'],
+      html:
+        '<strong>OneLake</strong> is the single, tenant-wide data lake built into Microsoft Fabric — think “OneDrive for data”.<br><br>' +
+        '• One copy of data accessible to every Fabric workload (Lakehouse, Warehouse, Power BI, Real-Time, Data Science).<br>' +
+        '• Open Delta Parquet format under the hood.<br>' +
+        '• <em>Shortcuts</em> let you reference data in ADLS Gen2, Amazon S3, or Google Cloud Storage without copying.<br>' +
+        '• Security and governance flow through the Fabric workspace model.',
+      chips: ['Lakehouse vs Warehouse', 'What is a shortcut?', 'What is Direct Lake?'],
+    },
+    {
+      id: 'lakehouse-vs-warehouse',
+      keywords: ['lakehouse vs warehouse', 'warehouse vs lakehouse', 'lakehouse or warehouse'],
+      html:
+        '<strong>Lakehouse vs Warehouse in Fabric</strong><br><br>' +
+        '<strong>Lakehouse</strong> — files + tables on OneLake. Spark / Notebook first, schema-on-read, great for data engineering, unstructured + structured data, ML.<br><br>' +
+        '<strong>Warehouse</strong> — fully managed T-SQL data warehouse. Multi-table transactions, stored procedures, classic BI workloads.<br><br>' +
+        'Both store data in OneLake as Delta tables, so Power BI can query either through Direct Lake.',
+      chips: ['What is Direct Lake?', 'What is OneLake?', 'What is a Dataflow Gen2?'],
+    },
+    {
+      id: 'direct-lake',
+      keywords: ['direct lake', 'directlake'],
+      html:
+        '<strong>Direct Lake</strong> is a Power BI semantic-model storage mode unique to Fabric. It reads Delta Parquet files in OneLake <em>directly</em>, with no import refresh and no DirectQuery round-trip per visual.<br><br>' +
+        '• Fast like Import, fresh like DirectQuery.<br>' +
+        '• Falls back to DirectQuery if a query exceeds capacity limits (guardrails).<br>' +
+        '• Requires a Lakehouse or Warehouse as the data source.',
+      chips: ['Lakehouse vs Warehouse', 'What is OneLake?'],
+    },
+    {
+      id: 'dataflow-gen2',
+      keywords: ['dataflow gen2', 'dataflow gen 2', 'gen2 dataflow', 'what is dataflow'],
+      html:
+        '<strong>Dataflow Gen2</strong> is Power Query in the cloud — a low-code way to ingest and transform data, then land it in a destination (Lakehouse, Warehouse, KQL DB, Azure SQL).<br><br>' +
+        '• Familiar Power Query M experience.<br>' +
+        '• Good when transformations are needed and authors prefer a visual UI over code.<br>' +
+        '• Heavier than Copy Job, lighter than a full Spark notebook.',
+      chips: ['Copy Job vs Data Pipeline', 'What is a Notebook?'],
+    },
+    {
+      id: 'shortcut',
+      keywords: ['what is a shortcut', 'onelake shortcut', 'shortcuts in fabric'],
+      html:
+        '<strong>OneLake shortcuts</strong> are references to data that lives elsewhere — another Fabric workspace, ADLS Gen2, Amazon S3, GCS, or a Dataverse table.<br><br>' +
+        '• No data is copied — reads are virtualized.<br>' +
+        '• Great for unifying data across clouds and reusing curated datasets across workspaces.',
+      chips: ['What is OneLake?', 'Lakehouse vs Warehouse'],
+    },
+  ];
+
+  // ---------- Textile knowledge base ----------
   const TYPE_INFO = {
     Cotton: {
       summary:
@@ -126,6 +235,10 @@
     const t = normalize(text).trim();
     if (!t) return { kind: 'empty' };
 
+    // Microsoft Fabric platform topics take precedence
+    const topicHit = matchFabricTopic(t);
+    if (topicHit) return { kind: 'platform', topic: topicHit };
+
     // Greetings
     if (/^(hi|hello|hey|yo|hiya|howdy|good\s*(morning|afternoon|evening))\b/.test(t)) {
       return { kind: 'greeting' };
@@ -180,6 +293,20 @@
     return null;
   }
 
+  // Pick the highest-scoring Fabric platform topic, if any.
+  function matchFabricTopic(t) {
+    let best = null;
+    let bestScore = 0;
+    for (const topic of FABRIC_TOPICS) {
+      let score = 0;
+      for (const kw of topic.keywords) {
+        if (t.includes(kw)) score += kw.split(' ').length; // longer phrase = stronger match
+      }
+      if (score > bestScore) { bestScore = score; best = topic; }
+    }
+    return bestScore > 0 ? best : null;
+  }
+
   function titleCase(s) {
     return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
   }
@@ -204,9 +331,12 @@
       case 'greeting':
         return {
           html: `Hi! I'm the <strong>Fabric Advisor</strong>. Ask me anything like:<br>
-                 <em>"What's good for a summer dress?"</em> or <em>"How do I care for silk?"</em>`,
+                 <em>"What is Copy Job?"</em> or <em>"When to use on-prem data gateway vs VNet data gateway?"</em>`,
           chips: defaultChips(),
         };
+
+      case 'platform':
+        return { html: intent.topic.html, chips: intent.topic.chips || defaultChips() };
 
       case 'thanks':
         return { html: `You're welcome! Happy sewing 🪡`, chips: defaultChips() };
@@ -304,10 +434,10 @@
 
   function defaultChips() {
     return [
-      'Best fabric for a summer dress',
-      'How do I care for silk?',
-      'Beginner picks',
-      'What is linen?',
+      'What is Copy Job?',
+      'On-prem vs VNet data gateway',
+      'Lakehouse vs Warehouse',
+      'What is OneLake?',
     ];
   }
 
