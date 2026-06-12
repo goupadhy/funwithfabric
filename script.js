@@ -3,6 +3,11 @@
    ============================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // ---- Render customer success stories ----
+  if (typeof customerStories !== 'undefined') {
+    renderCustomerStories(customerStories);
+  }
+
   // ---- Render fabric samples ----
   renderFabricSamples(fabricSamples);
 
@@ -233,6 +238,36 @@ function resourceCardHTML(resource, index) {
       <span class="resource-link">
         ${isExternal ? 'Visit site' : 'Learn more'} →
       </span>
+    </a>`;
+}
+
+/* =============================================
+   CUSTOMER SUCCESS STORIES
+   ============================================= */
+
+function renderCustomerStories(stories) {
+  const grid = document.getElementById('customers-grid');
+  if (!grid) return;
+
+  grid.innerHTML = stories.map((s, i) => customerCardHTML(s, i)).join('');
+}
+
+function customerCardHTML(story, index) {
+  const accent = story.accent || '#117865';
+  return `
+    <a class="customer-card" href="${story.url}" target="_blank" rel="noopener noreferrer"
+       style="animation-delay:${index * 0.05}s; --customer-accent:${accent};"
+       aria-label="${story.company} — Microsoft Fabric customer story">
+      <div class="customer-card-head">
+        <div class="customer-logo" aria-hidden="true">${story.monogram}</div>
+        <div class="customer-meta">
+          <div class="customer-name">${story.company}</div>
+          <div class="customer-industry">${story.industry}</div>
+        </div>
+      </div>
+      <div class="customer-workload">${story.workload}</div>
+      <p class="customer-summary">${story.summary}</p>
+      <span class="customer-link">Read the story ↗</span>
     </a>`;
 }
 

@@ -870,6 +870,148 @@ img {
 }
 
 /* =============================================
+   CUSTOMER SUCCESS STORIES
+   ============================================= */
+.customers-section {
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-primary-light) 100%);
+  padding: 4rem 0 4.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.customers-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.customers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.customer-card {
+  --customer-accent: #117865;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.5rem 1.5rem 1.4rem;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--color-text);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 4px 8px rgba(0, 0, 0, 0.04);
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  overflow: hidden;
+  animation: fadeUp 360ms ease both;
+}
+
+.customer-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: var(--customer-accent);
+  opacity: 0.85;
+}
+
+.customer-card:hover,
+.customer-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--customer-accent);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.06),
+    0 12px 28px rgba(17, 120, 101, 0.14);
+}
+
+.customer-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding-top: 0.25rem;
+}
+
+.customer-logo {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: var(--customer-accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.customer-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.customer-name {
+  font-family: var(--font-display, var(--font-family));
+  font-weight: 600;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+.customer-industry {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-top: 0.15rem;
+}
+
+.customer-workload {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-primary, #117865);
+  background: rgba(17, 120, 101, 0.08);
+  border: 1px solid rgba(17, 120, 101, 0.18);
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+}
+
+.customer-summary {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.customer-link {
+  margin-top: auto;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--customer-accent);
+  letter-spacing: 0.01em;
+}
+
+.customers-cta {
+  margin-top: 2.25rem;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .customers-grid { grid-template-columns: 1fr; }
+  .customer-card { padding: 1.25rem; }
+}
+
+/* =============================================
    ARCHITECTURE SECTION
    ============================================= */
 .arch-section {

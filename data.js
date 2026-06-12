@@ -246,3 +246,79 @@ const resources = [
     icon: "💳",
   },
 ];
+
+/* =============================================
+   CUSTOMER SUCCESS STORIES
+   Publicly announced Microsoft Fabric customers.
+   Each `url` points to the official Microsoft customer-stories
+   search filtered by Microsoft Fabric and the company name —
+   a stable, verifiable Microsoft URL.
+   ============================================= */
+const customerStories = [
+  {
+    id: 1,
+    company: "Swiggy",
+    monogram: "SW",
+    accent: "#FC8019",
+    industry: "Food Delivery · India",
+    workload: "Real-Time Intelligence",
+    summary:
+      "India's hyperlocal commerce leader uses Microsoft Fabric Real-Time Intelligence and Eventhouse to power live operational dashboards across millions of daily orders, restaurants, and delivery partners.",
+    url: "https://www.microsoft.com/en-us/customers/search?filters=product%3Amicrosoft-fabric&searchTerm=Swiggy",
+  },
+  {
+    id: 2,
+    company: "KPMG",
+    monogram: "KP",
+    accent: "#00338D",
+    industry: "Professional Services · Global",
+    workload: "Data Engineering + Power BI",
+    summary:
+      "KPMG built its Trusted AI and audit-analytics platform on Microsoft Fabric, consolidating client data into OneLake and using Power BI Direct Lake to deliver insights to auditors and advisors worldwide.",
+    url: "https://www.microsoft.com/en-us/customers/search?filters=product%3Amicrosoft-fabric&searchTerm=KPMG",
+  },
+  {
+    id: 3,
+    company: "Melbourne Airport",
+    monogram: "MA",
+    accent: "#0078D4",
+    industry: "Aviation · Australia",
+    workload: "Data Warehouse + Power BI",
+    summary:
+      "Australia's second-busiest airport unified passenger, retail, parking, and operational data on OneLake to give every team a single, real-time view of airport performance through Power BI.",
+    url: "https://www.microsoft.com/en-us/customers/search?filters=product%3Amicrosoft-fabric&searchTerm=Melbourne+Airport",
+  },
+  {
+    id: 4,
+    company: "EY",
+    monogram: "EY",
+    accent: "#2E2E38",
+    industry: "Professional Services · Global",
+    workload: "Data Science + Copilot",
+    summary:
+      "EY's AI Confidence Index and global analytics products run on Microsoft Fabric, using notebooks, Lakehouses, and Copilot to accelerate insight delivery to clients across 150+ countries.",
+    url: "https://www.microsoft.com/en-us/customers/search?filters=product%3Amicrosoft-fabric&searchTerm=EY",
+  },
+  {
+    id: 5,
+    company: "ZEISS Group",
+    monogram: "ZG",
+    accent: "#000099",
+    industry: "Optics & Manufacturing · Germany",
+    workload: "OneLake + Data Engineering",
+    summary:
+      "ZEISS consolidated decades of manufacturing and IoT data into OneLake, replacing siloed warehouses and enabling cross-business-unit analytics, predictive maintenance, and AI on a single platform.",
+    url: "https://www.microsoft.com/en-us/customers/search?filters=product%3Amicrosoft-fabric&searchTerm=ZEISS",
+  },
+  {
+    id: 6,
+    company: "Hitachi Solutions",
+    monogram: "HS",
+    accent: "#E60027",
+    industry: "Systems Integrator · Global",
+    workload: "Data Factory + Lakehouse",
+    summary:
+      "Hitachi Solutions built Empower Data Platform on Microsoft Fabric — a packaged solution that uses Data Factory, Lakehouses, and Power BI to give customers a production-ready data estate in weeks instead of months.",
+    url: "https://www.microsoft.com/en-us/customers/search?filters=product%3Amicrosoft-fabric&searchTerm=Hitachi+Solutions",
+  },
+];
