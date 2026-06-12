@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Fun With Fabric – A community hub for fabric samples, sewing resources, and textile inspiration." />
+  <meta name="theme-color" content="#7c4dbd" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Fun With Fabric – Community Hub" />
+  <meta property="og:description" content="Explore curated fabric samples and useful sewing resources from our community." />
+  <meta property="og:type" content="website" />
+
+  <title>Fun With Fabric – Community Hub</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧵</text></svg>" />
+</head>
+<body>
+
+  <!-- Skip to main -->
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- =============================================
+       HEADER
+       ============================================= -->
+  <header class="site-header" role="banner">
+    <nav class="nav-container" aria-label="Primary navigation">
+      <a href="#" class="nav-brand" aria-label="Fun With Fabric home">
+        <span class="brand-icon" aria-hidden="true">🧵</span>
+        Fun With Fabric
+      </a>
+
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="#samples">Fabric Samples</a></li>
+        <li><a href="#resources">Resources</a></li>
+        <li><a href="#contribute">Contribute</a></li>
+        <li>
+          <a href="https://github.com/goupadhy/funwithfabric" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in new tab)">
+            GitHub
+          </a>
+        </li>
+      </ul>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-controls="nav-links" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- =============================================
+       HERO
+       ============================================= -->
+  <section class="hero" aria-label="Welcome banner">
+    <div class="hero-content">
+      <span class="hero-badge">Community Resource</span>
+      <h1>Fun With Fabric</h1>
+      <p>
+        Your community hub for curated fabric samples, sewing patterns, and
+        textile resources. Discover, learn, and share with fellow fabric lovers.
+      </p>
+      <div class="hero-actions">
+        <a href="#samples" class="btn btn-primary">Browse Fabric Samples</a>
+        <a href="#resources" class="btn btn-outline">Explore Resources</a>
+      </div>
+    </div>
+
+    <div class="hero-stats" aria-label="Community statistics">
+      <div class="stat">
+        <span class="stat-number" id="stat-samples">12</span>
+        <span class="stat-label">Fabric Samples</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number" id="stat-resources">8</span>
+        <span class="stat-label">Resources</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">6</span>
+        <span class="stat-label">Fabric Types</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       MAIN CONTENT
+       ============================================= -->
+  <main id="main" class="main-content">
+
+    <!-- FABRIC SAMPLES -->
+    <section id="samples" class="section" aria-labelledby="samples-heading">
+      <div class="section-header">
+        <span class="section-eyebrow">Curated Collection</span>
+        <h2 id="samples-heading">Fabric Samples</h2>
+        <p>Browse our community-curated library of fabrics with details on weight, uses, and care.</p>
+      </div>
+
+      <!-- Filter bar -->
+      <div class="filter-bar" role="search" aria-label="Filter fabric samples">
+        <div class="search-wrap">
+          <span class="search-icon" aria-hidden="true">🔍</span>
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Search by name, type, color, or use…"
+            aria-label="Search fabric samples"
+            autocomplete="off"
+          />
+        </div>
+        <div class="filter-chips" id="fabric-type-chips" role="group" aria-label="Filter by fabric type">
+          <!-- Chips rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Fabric grid -->
+      <div class="fabric-grid" id="fabric-grid" aria-live="polite" aria-label="Fabric samples">
+        <!-- Cards rendered by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =============================================
+       RESOURCES (full-width band)
+       ============================================= -->
+  <section id="resources" aria-labelledby="resources-heading" style="background:var(--color-primary-light); padding: 4rem 0;">
+    <div class="resources-inner" style="max-width:1200px; margin:0 auto; padding:0 1.5rem;">
+      <div class="section-header">
+        <span class="section-eyebrow">Helpful Links</span>
+        <h2 id="resources-heading">Useful Resources</h2>
+        <p>Tutorials, reference guides, tools, and community spaces to level up your fabric craft.</p>
+      </div>
+
+      <!-- Resource category chips -->
+      <div class="resource-categories" id="resource-category-chips" role="group" aria-label="Filter by resource category">
+        <!-- Chips rendered by JS -->
+      </div>
+
+      <!-- Resources grid -->
+      <div class="resources-grid" id="resources-grid" aria-live="polite" aria-label="Resources">
+        <!-- Cards rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       CONTRIBUTE / CTA
+       ============================================= -->
+  <div class="main-content">
+    <section id="contribute" class="cta-section" aria-labelledby="contribute-heading">
+      <h2 id="contribute-heading">Contribute to the Collection</h2>
+      <p>
+        Have a favorite fabric or a useful resource to share? We'd love to hear from
+        the community. Open a pull request or start a discussion on GitHub.
+      </p>
+      <div class="cta-actions">
+        <a
+          href="https://github.com/goupadhy/funwithfabric/issues/new"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary"
+        >
+          Submit a Suggestion
+        </a>
+        <a
+          href="https://github.com/goupadhy/funwithfabric"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-outline"
+        >
+          View on GitHub
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <!-- =============================================
+       FOOTER
+       ============================================= -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <!-- Brand -->
+        <div class="footer-brand">
+          <a href="#" class="nav-brand">
+            <span class="brand-icon" aria-hidden="true">🧵</span>
+            Fun With Fabric
+          </a>
+          <p>
+            A community-driven hub for fabric enthusiasts — sharing samples,
+            resources, and inspiration for all skill levels.
+          </p>
+        </div>
+
+        <!-- Quick links -->
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul role="list">
+            <li><a href="#samples">Fabric Samples</a></li>
+            <li><a href="#resources">Resources</a></li>
+            <li><a href="#contribute">Contribute</a></li>
+          </ul>
+        </div>
+
+        <!-- External links -->
+        <div class="footer-col">
+          <h4>Community</h4>
+          <ul role="list">
+            <li>
+              <a href="https://github.com/goupadhy/funwithfabric" target="_blank" rel="noopener noreferrer">
+                GitHub Repository
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/goupadhy/funwithfabric/issues" target="_blank" rel="noopener noreferrer">
+                Report an Issue
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/goupadhy/funwithfabric/discussions" target="_blank" rel="noopener noreferrer">
+                Discussions
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          Made with <span class="footer-heart" aria-label="love">❤️</span> by the Fun With Fabric community.
+          Open source on
+          <a href="https://github.com/goupadhy/funwithfabric" target="_blank" rel="noopener noreferrer">GitHub</a>.
+        </p>
+        <p>
+          <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">Hosted on GitHub Pages</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button id="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
+
+  <!-- Data & scripts -->
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
