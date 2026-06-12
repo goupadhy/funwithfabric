@@ -65,6 +65,52 @@ document.addEventListener('DOMContentLoaded', () => {
 let activeTypeFilter = 'all';
 let activeSearch = '';
 
+/* Workload → inline-SVG icon. Stroke uses currentColor so it can be tinted
+   per-card via CSS (we render white-on-color since the swatch background is
+   the workload's brand color). */
+const WORKLOAD_ICONS = {
+  'Data Engineering':
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 1 1 3 3l-9 9H5v-3.7l9-9z"/><path d="M13 8l3 3"/></svg>',
+  'Data Factory':
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l5 3V10l5 3V7l8 4v10z"/><path d="M3 21h18"/></svg>',
+  'Data Warehouse':
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="2.5"/><path d="M4 5v6c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5V5"/><path d="M4 11v6c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5v-6"/></svg>',
+  'Real-Time Intelligence':
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>',
+  'Power BI':
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="13" width="4" height="8" rx="1"/><rect x="10" y="8" width="4" height="13" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg>',
+  'Data Science':
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg>',
+  'OneLake':
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 17c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 7c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg>',
+  'Mirroring':
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="7" height="14" rx="1.5"/><rect x="14" y="5" width="7" height="14" rx="1.5"/><path d="M10 12h4"/><path d="M12.5 10.5L14 12l-1.5 1.5"/><path d="M11.5 13.5L10 12l1.5-1.5"/></svg>',
+  'Databases':
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="2.5"/><path d="M4 6v12c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5V6"/><path d="M4 12c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5"/></svg>',
+  'AI':
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2 4 4 2-4 2-2 4-2-4-4-2 4-2z"/><path d="M19 14l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></svg>',
+  'Governance':
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>',
+};
+
+function workloadIcon(fabric) {
+  const key = fabric.type || fabric.name;
+  return WORKLOAD_ICONS[key] || WORKLOAD_ICONS[fabric.name] || '';
+}
+
+/* Pick icon stroke color based on swatch luminance so light swatches
+   (e.g. Power BI yellow) get a dark icon and dark swatches get white. */
+function iconColorFor(hex) {
+  const c = (hex || '').replace('#', '');
+  if (c.length !== 6) return '#fff';
+  const r = parseInt(c.slice(0, 2), 16) / 255;
+  const g = parseInt(c.slice(2, 4), 16) / 255;
+  const b = parseInt(c.slice(4, 6), 16) / 255;
+  // Relative luminance (sRGB approximation)
+  const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return lum > 0.6 ? '#0E5C4F' : '#fff';
+}
+
 function buildFabricFilters() {
   const types = ['all', ...new Set(fabricSamples.map(f => f.type))].sort((a, b) =>
     a === 'all' ? -1 : b === 'all' ? 1 : a.localeCompare(b)
@@ -139,10 +185,13 @@ function fabricCardHTML(fabric, index) {
     .map(t => `<span class="fabric-tag">#${t}</span>`)
     .join('');
 
+  const icon = workloadIcon(fabric);
+  const iconColor = iconColorFor(fabric.colorHex);
+
   return `
     <article class="fabric-card" style="animation-delay:${index * 0.04}s" aria-label="${fabric.name}">
-      <div class="fabric-swatch" style="background-color:${fabric.colorHex};" role="img" aria-label="${fabric.color} fabric swatch">
-        🧵
+      <div class="fabric-swatch" style="background-color:${fabric.colorHex}; color:${iconColor};" role="img" aria-label="${fabric.name} icon">
+        ${icon}
       </div>
       <div class="fabric-body">
         <div class="fabric-meta">

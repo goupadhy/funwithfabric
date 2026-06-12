@@ -504,6 +504,15 @@ img {
   justify-content: center;
   font-size: 2.2rem;
   position: relative;
+  color: #fff;
+}
+
+.fabric-swatch svg {
+  width: 44px;
+  height: 44px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+  position: relative;
+  z-index: 1;
 }
 
 .fabric-swatch::after {
