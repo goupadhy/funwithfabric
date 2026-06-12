@@ -69,6 +69,7 @@
         <li><a href="#samples">Fabric Samples</a></li>
         <li><a href="#resources">Resources</a></li>
         <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#help-me-decide">Help Me Decide</a></li>
         <li><a href="#customers">Customers</a></li>
         <li><a href="#fun-zone">Fun Zone</a></li>
         <li><a href="#contribute">Contribute</a></li>
@@ -314,6 +315,117 @@
   </section>
 
   <!-- =============================================
+       HELP ME DECIDE  (Mirroring vs Copy Job vs Pipelines vs Eventstreams)
+       ============================================= -->
+  <section id="help-me-decide" class="decide-section" aria-labelledby="decide-heading">
+    <div class="decide-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">Pick the right tool</span>
+        <h2 id="decide-heading">Help Me Decide</h2>
+        <p>Answer 4 quick questions and we'll highlight the best Fabric data-movement option for your scenario — Mirroring, Copy Job, Copy activity in Pipelines, or Eventstreams.</p>
+      </div>
+
+      <!-- Questions -->
+      <div class="decide-questions" id="decide-questions">
+        <fieldset class="decide-q" data-q="latency">
+          <legend><span class="decide-q-num">1</span> What's your latency need?</legend>
+          <div class="decide-chips">
+            <button type="button" class="decide-chip" data-v="realtime">Real-time / streaming (seconds)</button>
+            <button type="button" class="decide-chip" data-v="nearreal">Near real-time (minutes)</button>
+            <button type="button" class="decide-chip" data-v="batch">Scheduled / batch</button>
+          </div>
+        </fieldset>
+
+        <fieldset class="decide-q" data-q="source">
+          <legend><span class="decide-q-num">2</span> Where is your source data?</legend>
+          <div class="decide-chips">
+            <button type="button" class="decide-chip" data-v="db">Operational DB (SQL, Cosmos, Snowflake…)</button>
+            <button type="button" class="decide-chip" data-v="files">Files / SaaS / many connectors</button>
+            <button type="button" class="decide-chip" data-v="streams">Streams (Kafka, Event Hubs, AMQP, HTTP)</button>
+          </div>
+        </fieldset>
+
+        <fieldset class="decide-q" data-q="transform">
+          <legend><span class="decide-q-num">3</span> How much transformation do you need?</legend>
+          <div class="decide-chips">
+            <button type="button" class="decide-chip" data-v="none">None — just land the data</button>
+            <button type="button" class="decide-chip" data-v="cdc">Incremental / CDC out of the box</button>
+            <button type="button" class="decide-chip" data-v="custom">Custom logic, multi-step orchestration</button>
+            <button type="button" class="decide-chip" data-v="stream-tx">In-flight stream transforms / routing</button>
+          </div>
+        </fieldset>
+
+        <fieldset class="decide-q" data-q="control">
+          <legend><span class="decide-q-num">4</span> How much control do you want?</legend>
+          <div class="decide-chips">
+            <button type="button" class="decide-chip" data-v="lowest">Lowest effort — managed for me</button>
+            <button type="button" class="decide-chip" data-v="moderate">Moderate — low-code with advanced options</button>
+            <button type="button" class="decide-chip" data-v="full">Full control — I'll author the pipeline</button>
+          </div>
+        </fieldset>
+      </div>
+
+      <!-- Recommendation banner -->
+      <div class="decide-result" id="decide-result" role="status" aria-live="polite">
+        <span class="decide-result-label">Our pick:</span>
+        <strong id="decide-pick">Answer the questions to see a recommendation</strong>
+        <button type="button" class="decide-reset" id="decide-reset" hidden>Reset</button>
+      </div>
+
+      <!-- Option cards (recommended one gets highlighted) -->
+      <div class="decide-cards" id="decide-cards">
+        <article class="decide-card" data-key="mirroring" tabindex="0">
+          <div class="decide-card-head" style="--accent:#2AC2A0;">
+            <span class="decide-card-badge">Mirroring</span>
+            <span class="decide-card-tagline">Simple &amp; free</span>
+          </div>
+          <p>A <strong>simple and free</strong> way to mirror operational data into Fabric for analytics. Minimal setup, writes to a single read-only destination in OneLake.</p>
+          <ul class="decide-card-tags">
+            <li>Zero-ETL</li><li>OneLake replica</li><li>Read-only</li><li>Live</li>
+          </ul>
+          <a class="decide-card-link" href="https://learn.microsoft.com/en-us/fabric/database/mirrored-database/overview" target="_blank" rel="noopener">Learn about Mirroring ↗</a>
+        </article>
+
+        <article class="decide-card" data-key="copyjob" tabindex="0">
+          <div class="decide-card-head" style="--accent:#0078D4;">
+            <span class="decide-card-badge">Copy Job</span>
+            <span class="decide-card-tagline">Low-code, multi-mode</span>
+          </div>
+          <p>Makes ingestion easier with <strong>native bulk copy, incremental copy, and CDC replication</strong> — without building pipelines, while still giving you advanced options. Many sources and destinations.</p>
+          <ul class="decide-card-tags">
+            <li>Bulk</li><li>Incremental</li><li>CDC</li><li>No pipeline needed</li>
+          </ul>
+          <a class="decide-card-link" href="https://learn.microsoft.com/en-us/fabric/data-factory/what-is-copy-job" target="_blank" rel="noopener">Learn about Copy Job ↗</a>
+        </article>
+
+        <article class="decide-card" data-key="pipeline" tabindex="0">
+          <div class="decide-card-head" style="--accent:#7B61FF;">
+            <span class="decide-card-badge">Copy activity in Pipelines</span>
+            <span class="decide-card-tagline">Full orchestration</span>
+          </div>
+          <p>Built for users who need <strong>orchestrated, pipeline-based ingestion workflows</strong>. Heavily customizable with transformation logic, but you manage pipeline components yourself — including incremental state.</p>
+          <ul class="decide-card-tags">
+            <li>Orchestration</li><li>Transforms</li><li>Customizable</li><li>Multi-activity</li>
+          </ul>
+          <a class="decide-card-link" href="https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-copy-activity" target="_blank" rel="noopener">Learn about Copy activity ↗</a>
+        </article>
+
+        <article class="decide-card" data-key="eventstream" tabindex="0">
+          <div class="decide-card-head" style="--accent:#F2C811;">
+            <span class="decide-card-badge">Eventstreams</span>
+            <span class="decide-card-tagline">Real-time ingestion</span>
+          </div>
+          <p>Designed for <strong>real-time ingestion, transformation and processing of streaming data</strong>. Low-latency pipelines, schema management, and routing to Eventhouse, Lakehouse, Activator, and Custom Endpoints (AMQP, Kafka, HTTP).</p>
+          <ul class="decide-card-tags">
+            <li>Streaming</li><li>Low latency</li><li>Routing</li><li>Kafka / AMQP / HTTP</li>
+          </ul>
+          <a class="decide-card-link" href="https://learn.microsoft.com/en-us/fabric/real-time-intelligence/event-streams/overview" target="_blank" rel="noopener">Learn about Eventstreams ↗</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
        CUSTOMER SUCCESS STORIES
        ============================================= -->
   <section id="customers" class="customers-section" aria-labelledby="customers-heading">
@@ -530,6 +642,7 @@
   <script src="script.js"></script>
   <script src="fun.js"></script>
   <script src="visits.js"></script>
+  <script src="decide.js"></script>
   <script src="chatbot.js"></script>
 
 </body>
