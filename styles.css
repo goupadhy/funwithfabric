@@ -1810,6 +1810,183 @@ img {
 }
 
 /* =============================================
+   BEST PRACTICES
+   ============================================= */
+.bp-section {
+  padding: 4.5rem 1.5rem;
+  background:
+    radial-gradient(1200px 400px at 10% -10%, rgba(42,194,160,0.12), transparent 60%),
+    radial-gradient(1000px 360px at 100% 0%, rgba(123,97,255,0.10), transparent 60%),
+    #ffffff;
+  border-top: 1px solid rgba(17, 120, 101, 0.12);
+  border-bottom: 1px solid rgba(17, 120, 101, 0.12);
+}
+.bp-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.bp-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.75rem 0 2rem;
+}
+.bp-chip {
+  font: inherit;
+  font-size: 0.82rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 120, 101, 0.25);
+  background: #fff;
+  color: var(--fabric-teal-deep, #0E5C4F);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.bp-chip:hover {
+  background: rgba(42, 194, 160, 0.10);
+  border-color: var(--fabric-mint, #2AC2A0);
+}
+.bp-chip:focus-visible {
+  outline: 2px solid var(--fabric-mint, #2AC2A0);
+  outline-offset: 2px;
+}
+.bp-chip.is-active {
+  background: linear-gradient(135deg, #2AC2A0 0%, #117865 100%);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 2px 6px rgba(17, 120, 101, 0.22);
+}
+.bp-chip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.6) inset;
+}
+.bp-chip.is-active .bp-chip-dot {
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.85) inset;
+}
+
+.bp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+.bp-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid rgba(17, 120, 101, 0.18);
+  border-radius: 16px;
+  padding: 1.2rem 1.25rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  box-shadow: 0 1px 3px rgba(14, 92, 79, 0.06);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  overflow: hidden;
+}
+.bp-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: var(--accent, #117865);
+  opacity: 0.95;
+}
+.bp-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(14, 92, 79, 0.12);
+}
+
+.bp-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding-top: 0.35rem;
+}
+.bp-card-head h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--accent, var(--fabric-teal-deep, #0E5C4F));
+}
+.bp-card-icon {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent, #117865) 12%, white);
+  color: var(--accent, #117865);
+  flex: 0 0 auto;
+}
+
+.bp-tips {
+  list-style: none;
+  counter-reset: bp;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+.bp-tips li {
+  counter-increment: bp;
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 0.5rem;
+  align-items: start;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: #2b2b2b;
+}
+.bp-tips li::before {
+  content: counter(bp);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent, #117865) 18%, white);
+  color: var(--accent, #117865);
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-top: 2px;
+}
+.bp-tips li strong {
+  grid-column: 2 / 3;
+  display: block;
+  font-size: 0.9rem;
+  color: #1a1a1a;
+  margin-bottom: 0.15rem;
+}
+.bp-tips li span {
+  grid-column: 2 / 3;
+  display: block;
+  color: #4a5a55;
+}
+
+.bp-card-learn {
+  align-self: flex-start;
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: var(--accent, var(--fabric-teal, #117865));
+  text-decoration: none;
+}
+.bp-card-learn:hover { text-decoration: underline; }
+
+@media (max-width: 600px) {
+  .bp-section { padding: 3rem 1rem; }
+}
+
+/* =============================================
    FABRIC ADVISOR CHATBOT
    ============================================= */
 .fab-advisor {
