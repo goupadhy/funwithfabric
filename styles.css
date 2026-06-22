@@ -1231,6 +1231,62 @@ img {
 }
 
 /* =============================================
+   FABRIC PODCAST
+   ============================================= */
+.podcast-section {
+  padding: 4rem 0;
+  background:
+    radial-gradient(900px 260px at 50% -12%, rgba(42, 194, 160, 0.16), transparent 70%),
+    #ffffff;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.podcast-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.podcast-card {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 10px 24px rgba(17, 120, 101, 0.08);
+  padding: 1.25rem;
+}
+
+.podcast-controls {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.podcast-status {
+  margin: 0.9rem 0 1rem;
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+}
+
+.podcast-episodes {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.podcast-episodes li {
+  color: var(--color-text);
+  line-height: 1.45;
+}
+
+.podcast-episodes li.is-playing {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* =============================================
    CUSTOMER SUCCESS STORIES
    ============================================= */
 .customers-section {

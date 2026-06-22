@@ -108,7 +108,7 @@
 
     <div class="hero-stats" aria-label="Microsoft Fabric at a glance">
       <div class="stat">
-        <span class="stat-number" id="stat-customers">6+</span>
+        <span class="stat-number" id="stat-customers">1000+</span>
         <span class="stat-label">Customer Stories</span>
       </div>
       <div class="stat">
@@ -262,6 +262,31 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       FABRIC PODCAST — latest updates blog reader
+       ============================================= -->
+  <section id="fabric-podcast" class="podcast-section" aria-labelledby="podcast-heading">
+    <div class="podcast-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">Fabric Podcast</span>
+        <h2 id="podcast-heading">Latest Fabric Updates, Read Aloud</h2>
+        <p>Auto-reads the latest posts from the Fabric Updates Blog so you can listen while you work.</p>
+      </div>
+
+      <div class="podcast-card">
+        <div class="podcast-controls" role="group" aria-label="Podcast playback controls">
+          <button class="btn btn-primary" id="podcast-play">Play Latest</button>
+          <button class="btn btn-outline" id="podcast-pause">Pause</button>
+          <button class="btn btn-outline" id="podcast-next">Next</button>
+        </div>
+
+        <p class="podcast-status" id="podcast-status" aria-live="polite">Loading latest posts...</p>
+
+        <ol class="podcast-episodes" id="podcast-episodes" aria-label="Latest Fabric Updates episodes"></ol>
       </div>
     </div>
   </section>
@@ -834,6 +859,7 @@
   <script src="script.js"></script>
   <script src="fun.js"></script>
   <script src="games.js"></script>
+  <script src="podcast.js"></script>
   <script src="visits.js"></script>
   <script src="decide.js"></script>
   <script src="bestpractices.js"></script>
