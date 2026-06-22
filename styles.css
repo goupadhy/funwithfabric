@@ -2578,6 +2578,9 @@ img {
 }
 
 .match-def {
+  appearance: none;
+  width: 100%;
+  border: 2px solid var(--color-border);
   padding: 0.7rem;
   background: var(--color-primary-light);
   border-radius: var(--radius-sm);
@@ -2586,6 +2589,13 @@ img {
   margin: 0;
   opacity: 0.5;
   transition: all var(--transition);
+  text-align: left;
+  cursor: pointer;
+}
+
+.match-def:hover {
+  opacity: 0.9;
+  border-color: var(--color-primary);
 }
 
 .match-def.active {
@@ -2593,6 +2603,24 @@ img {
   background: var(--grad-fabric-ribbon);
   color: #fff;
   font-weight: 600;
+}
+
+.match-btn.correct,
+.match-def.correct,
+.match-btn.matched,
+.match-def.matched {
+  background: #1d7a45;
+  border-color: #1d7a45;
+  color: #fff;
+  opacity: 1;
+}
+
+.match-btn.wrong,
+.match-def.wrong {
+  background: #b42318;
+  border-color: #b42318;
+  color: #fff;
+  opacity: 1;
 }
 
 .match-score {

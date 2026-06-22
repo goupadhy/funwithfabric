@@ -29,6 +29,7 @@ const speedChallengeData = [
 // WORKLOAD MATCH GAME
 // =============================================
 let matchedPairs = new Set();
+let selectedWorkload = null;
 
 function initMatchGame() {
   const matchGame = document.getElementById('match-game');
@@ -42,11 +43,15 @@ function initMatchGame() {
     }
 
     const btn = event.target.closest('.match-btn');
-    if (!btn || !matchGame.contains(btn)) {
+    if (btn && matchGame.contains(btn)) {
+      handleMatchClick(btn);
       return;
     }
 
-    handleMatchClick(btn);
+    const def = event.target.closest('.match-def');
+    if (def && matchGame.contains(def)) {
+      handleDefinitionClick(def);
+    }
   });
 }
 
@@ -59,38 +64,63 @@ function handleMatchClick(btn) {
 
   const allBtns = matchGame.querySelectorAll('.match-btn');
   const definitions = matchGame.querySelectorAll('.match-def');
-  const counter = matchGame.querySelector('#match-counter');
 
   allBtns.forEach(b => {
-    if (!b.classList.contains('matched')) {
-      b.classList.remove('active');
-    }
+    b.classList.remove('active', 'wrong');
   });
-  btn.classList.add('active');
-  
-  // Show matching definition
-  definitions.forEach(def => {
-    if (def.dataset.for === workload) {
-      def.classList.add('active');
-      // Auto-match after brief display
-      setTimeout(() => {
-        btn.classList.remove('active');
-        btn.classList.add('matched');
-        matchedPairs.add(workload);
-        def.classList.remove('active');
+  definitions.forEach(def => def.classList.remove('wrong'));
 
-        if (counter) {
-          counter.textContent = `${matchedPairs.size}/6 matched`;
-        }
-        
-        if (matchedPairs.size === 6) {
-          showMatchGameVictory(matchGame);
-        }
-      }, 450);
-    } else {
-      def.classList.remove('active');
-    }
-  });
+  btn.classList.add('active');
+  selectedWorkload = workload;
+}
+
+function handleDefinitionClick(definition) {
+  const matchGame = document.getElementById('match-game');
+  if (!matchGame || !selectedWorkload) return;
+  if (definition.classList.contains('matched')) return;
+
+  const selectedBtn = matchGame.querySelector(`.match-btn[data-workload="${selectedWorkload}"]`);
+  const counter = matchGame.querySelector('#match-counter');
+  if (!selectedBtn || selectedBtn.classList.contains('matched')) {
+    selectedWorkload = null;
+    return;
+  }
+
+  const isMatch = definition.dataset.for === selectedWorkload;
+
+  if (isMatch) {
+    selectedBtn.classList.remove('active');
+    selectedBtn.classList.add('correct');
+    definition.classList.add('correct');
+
+    setTimeout(() => {
+      selectedBtn.classList.remove('correct');
+      definition.classList.remove('correct');
+      selectedBtn.classList.add('matched');
+      definition.classList.add('matched');
+
+      matchedPairs.add(selectedWorkload);
+      if (counter) {
+        counter.textContent = `${matchedPairs.size}/6 matched`;
+      }
+
+      if (matchedPairs.size === 6) {
+        showMatchGameVictory(matchGame);
+      }
+    }, 350);
+  } else {
+    selectedBtn.classList.remove('active');
+    selectedBtn.classList.add('wrong');
+    definition.classList.add('wrong');
+
+    setTimeout(() => {
+      selectedBtn.classList.remove('wrong');
+      definition.classList.remove('wrong');
+    }, 450);
+  }
+
+  selectedWorkload = null;
+  selectedBtn.blur();
 }
 
 function showMatchGameVictory(matchGame) {
@@ -101,6 +131,7 @@ function showMatchGameVictory(matchGame) {
 
 function resetMatchGame() {
   matchedPairs.clear();
+  selectedWorkload = null;
   const matchGame = document.getElementById('match-game');
   if (!matchGame) return;
 
@@ -108,8 +139,8 @@ function resetMatchGame() {
   const definitions = matchGame.querySelectorAll('.match-def');
   const counter = matchGame.querySelector('#match-counter');
   
-  matchBtns.forEach(btn => btn.classList.remove('matched', 'active'));
-  definitions.forEach(def => def.classList.remove('active'));
+  matchBtns.forEach(btn => btn.classList.remove('matched', 'active', 'correct', 'wrong'));
+  definitions.forEach(def => def.classList.remove('active', 'matched', 'correct', 'wrong'));
   if (counter) {
     counter.textContent = '0/6 matched';
     counter.style.color = 'var(--color-primary)';
