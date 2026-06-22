@@ -34,14 +34,20 @@ function initMatchGame() {
   const matchGame = document.getElementById('match-game');
   if (!matchGame) return;
 
-  const matchBtns = matchGame.querySelectorAll('.match-btn');
-  const resetBtn = matchGame.querySelector('#match-reset');
-  
-  matchBtns.forEach(btn => {
-    btn.addEventListener('click', () => handleMatchClick(btn));
+  matchGame.addEventListener('click', (event) => {
+    const reset = event.target.closest('#match-reset');
+    if (reset) {
+      resetMatchGame();
+      return;
+    }
+
+    const btn = event.target.closest('.match-btn');
+    if (!btn || !matchGame.contains(btn)) {
+      return;
+    }
+
+    handleMatchClick(btn);
   });
-  
-  resetBtn.addEventListener('click', resetMatchGame);
 }
 
 function handleMatchClick(btn) {
@@ -49,8 +55,18 @@ function handleMatchClick(btn) {
   
   const workload = btn.dataset.workload;
   const matchGame = document.getElementById('match-game');
+  if (!matchGame || !workload) return;
+
+  const allBtns = matchGame.querySelectorAll('.match-btn');
   const definitions = matchGame.querySelectorAll('.match-def');
   const counter = matchGame.querySelector('#match-counter');
+
+  allBtns.forEach(b => {
+    if (!b.classList.contains('matched')) {
+      b.classList.remove('active');
+    }
+  });
+  btn.classList.add('active');
   
   // Show matching definition
   definitions.forEach(def => {
@@ -58,15 +74,19 @@ function handleMatchClick(btn) {
       def.classList.add('active');
       // Auto-match after brief display
       setTimeout(() => {
+        btn.classList.remove('active');
         btn.classList.add('matched');
         matchedPairs.add(workload);
         def.classList.remove('active');
-        counter.textContent = `${matchedPairs.size}/6 matched`;
+
+        if (counter) {
+          counter.textContent = `${matchedPairs.size}/6 matched`;
+        }
         
         if (matchedPairs.size === 6) {
           showMatchGameVictory(matchGame);
         }
-      }, 1200);
+      }, 450);
     } else {
       def.classList.remove('active');
     }
@@ -82,14 +102,18 @@ function showMatchGameVictory(matchGame) {
 function resetMatchGame() {
   matchedPairs.clear();
   const matchGame = document.getElementById('match-game');
+  if (!matchGame) return;
+
   const matchBtns = matchGame.querySelectorAll('.match-btn');
   const definitions = matchGame.querySelectorAll('.match-def');
   const counter = matchGame.querySelector('#match-counter');
   
-  matchBtns.forEach(btn => btn.classList.remove('matched'));
+  matchBtns.forEach(btn => btn.classList.remove('matched', 'active'));
   definitions.forEach(def => def.classList.remove('active'));
-  counter.textContent = '0/6 matched';
-  counter.style.color = 'var(--color-primary)';
+  if (counter) {
+    counter.textContent = '0/6 matched';
+    counter.style.color = 'var(--color-primary)';
+  }
 }
 
 // =============================================

@@ -196,7 +196,8 @@ img {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
+  flex-wrap: nowrap;
   list-style: none;
 }
 
@@ -204,10 +205,11 @@ img {
   position: relative;
   color: var(--color-text-muted);
   font-weight: 500;
-  font-size: 0.92rem;
+  font-size: 0.82rem;
   transition: color var(--transition);
   text-decoration: none;
   padding: 6px 0;
+  white-space: nowrap;
 }
 
 .nav-links a:hover,
@@ -251,6 +253,17 @@ img {
   background: var(--color-text);
   border-radius: 2px;
   transition: all var(--transition);
+}
+
+@media (min-width: 769px) {
+  .nav-container {
+    max-width: 1320px;
+    padding: 0 1rem;
+  }
+
+  .nav-brand {
+    font-size: 1.05rem;
+  }
 }
 
 /* =============================================
@@ -2545,6 +2558,12 @@ img {
 .match-btn:hover {
   border-color: var(--color-primary);
   background: var(--color-primary-light);
+}
+
+.match-btn.active {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  box-shadow: 0 0 0 2px rgba(17, 120, 101, 0.15);
 }
 
 .match-btn.matched {
