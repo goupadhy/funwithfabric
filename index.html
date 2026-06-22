@@ -127,193 +127,7 @@
        ============================================= -->
   <main id="main" class="main-content">
 
-    <!-- FABRIC WORKLOADS -->
-    <section id="samples" class="section" aria-labelledby="samples-heading">
-      <div class="section-header">
-        <span class="section-eyebrow">Curated Collection</span>
-        <h2 id="samples-heading">Microsoft Fabric Workloads</h2>
-        <p>Every Fabric experience — Data Engineering, Data Factory, Data Warehouse, Real-Time Intelligence, Power BI, Data Science, and more — unified on OneLake.</p>
-      </div>
-
-      <!-- Filter bar -->
-      <div class="filter-bar" role="search" aria-label="Filter Fabric workloads">
-        <div class="search-wrap">
-          <span class="search-icon" aria-hidden="true">🔍</span>
-          <input
-            type="search"
-            id="search-input"
-            placeholder="Search workloads, scenarios, or tags (e.g. Spark, KQL, Copy Job)…"
-            aria-label="Search Fabric workloads"
-            autocomplete="off"
-          />
-        </div>
-        <div class="filter-chips" id="fabric-type-chips" role="group" aria-label="Filter by workload">
-          <!-- Chips rendered by JS -->
-        </div>
-      </div>
-
-      <!-- Workloads grid -->
-      <div class="fabric-grid" id="fabric-grid" aria-live="polite" aria-label="Microsoft Fabric workloads">
-        <!-- Cards rendered by JS -->
-      </div>
-    </section>
-
   </main>
-
-  <!-- =============================================
-       RESOURCES (full-width band)
-       ============================================= -->
-  <section id="resources" aria-labelledby="resources-heading" style="background:var(--color-primary-light); padding: 4rem 0;">
-    <div class="resources-inner" style="max-width:1200px; margin:0 auto; padding:0 1.5rem;">
-      <div class="section-header">
-        <span class="section-eyebrow">Helpful Links</span>
-        <h2 id="resources-heading">Useful Resources</h2>
-        <p>Official Microsoft Learn docs, tutorials, certifications, REST APIs, the public roadmap, and community channels for Microsoft Fabric.</p>
-      </div>
-
-      <!-- Resource category chips -->
-      <div class="resource-categories" id="resource-category-chips" role="group" aria-label="Filter by resource category">
-        <!-- Chips rendered by JS -->
-      </div>
-
-      <!-- Resources grid -->
-      <div class="resources-grid" id="resources-grid" aria-live="polite" aria-label="Resources">
-        <!-- Cards rendered by JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- =============================================
-       ARCHITECTURE (Microsoft Fabric reference docs)
-       ============================================= -->
-  <section id="architecture" class="arch-section" aria-labelledby="architecture-heading">
-    <div class="arch-inner">
-      <div class="section-header">
-        <span class="section-eyebrow">Reference Architecture</span>
-        <h2 id="architecture-heading">Microsoft Fabric Architecture</h2>
-        <p>
-          Curated links to the official Microsoft Learn guidance for designing data solutions
-          on Microsoft Fabric — starting with the medallion lakehouse pattern on OneLake.
-        </p>
-      </div>
-
-      <!-- Medallion diagram -->
-      <figure class="medallion-diagram" aria-label="Medallion lakehouse architecture: Bronze, Silver, Gold layers on OneLake">
-        <div class="medallion-layer medallion-bronze">
-          <div class="medallion-badge">Bronze</div>
-          <div class="medallion-title">Raw</div>
-          <p>Land data exactly as it arrives — files, tables, streams. Preserve the source of truth.</p>
-        </div>
-        <div class="medallion-arrow" aria-hidden="true">→</div>
-        <div class="medallion-layer medallion-silver">
-          <div class="medallion-badge">Silver</div>
-          <div class="medallion-title">Enriched</div>
-          <p>Clean, conform, deduplicate, and join. Standardize formats and keys.</p>
-        </div>
-        <div class="medallion-arrow" aria-hidden="true">→</div>
-        <div class="medallion-layer medallion-gold">
-          <div class="medallion-badge">Gold</div>
-          <div class="medallion-title">Curated</div>
-          <p>Business-ready aggregates and marts powering Power BI, ML, and analytics.</p>
-        </div>
-        <figcaption>All three layers live as Delta tables in <strong>OneLake</strong>.</figcaption>
-      </figure>
-
-      <!-- Reference link cards -->
-      <div class="arch-grid">
-        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/onelake/onelake-medallion-lakehouse-architecture" target="_blank" rel="noopener noreferrer">
-          <div class="arch-card-eyebrow">Foundational</div>
-          <h3>Medallion lakehouse architecture on OneLake</h3>
-          <p>The recommended Bronze / Silver / Gold design pattern for Microsoft Fabric.</p>
-          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
-        </a>
-
-        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/onelake/onelake-overview" target="_blank" rel="noopener noreferrer">
-          <div class="arch-card-eyebrow">Storage</div>
-          <h3>What is OneLake?</h3>
-          <p>The single, tenant-wide data lake built into Fabric — one copy, many engines.</p>
-          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
-        </a>
-
-        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/fundamentals/decision-guide-data-store" target="_blank" rel="noopener noreferrer">
-          <div class="arch-card-eyebrow">Decision guide</div>
-          <h3>Choose a Fabric data store</h3>
-          <p>Lakehouse vs Warehouse vs KQL DB vs Power BI datamart — when to pick which.</p>
-          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
-        </a>
-
-        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview" target="_blank" rel="noopener noreferrer">
-          <div class="arch-card-eyebrow">Data engineering</div>
-          <h3>Lakehouse overview</h3>
-          <p>Files + tables on Delta Parquet, with Spark and SQL endpoints in a single item.</p>
-          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
-        </a>
-
-        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/data-warehouse/data-warehousing" target="_blank" rel="noopener noreferrer">
-          <div class="arch-card-eyebrow">Data warehousing</div>
-          <h3>Warehouse in Fabric</h3>
-          <p>The T-SQL data warehouse experience over OneLake — transactions and stored procs.</p>
-          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
-        </a>
-
-        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/get-started/direct-lake-overview" target="_blank" rel="noopener noreferrer">
-          <div class="arch-card-eyebrow">Power BI</div>
-          <h3>Direct Lake mode</h3>
-          <p>Read Delta tables straight from OneLake — import-like speed, DirectQuery-like freshness.</p>
-          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
-        </a>
-
-        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/data-factory/copy-job" target="_blank" rel="noopener noreferrer">
-          <div class="arch-card-eyebrow">Data Factory</div>
-          <h3>Copy Job</h3>
-          <p>Code-free ingestion with full and incremental patterns, plus broad connector coverage.</p>
-          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
-        </a>
-
-        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/data-factory/data-factory-overview" target="_blank" rel="noopener noreferrer">
-          <div class="arch-card-eyebrow">Data Factory</div>
-          <h3>Data pipelines &amp; Dataflows Gen2</h3>
-          <p>Orchestrate multi-step pipelines and low-code Power Query transformations.</p>
-          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
-        </a>
-
-        <a class="arch-card" href="https://learn.microsoft.com/en-us/data-integration/gateway/service-gateway-onprem" target="_blank" rel="noopener noreferrer">
-          <div class="arch-card-eyebrow">Connectivity</div>
-          <h3>On-premises data gateway</h3>
-          <p>Bridge Fabric / Power BI to data behind your corporate firewall.</p>
-          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
-        </a>
-
-        <a class="arch-card" href="https://learn.microsoft.com/en-us/data-integration/vnet/overview" target="_blank" rel="noopener noreferrer">
-          <div class="arch-card-eyebrow">Connectivity</div>
-          <h3>Virtual network (VNet) data gateway</h3>
-          <p>Managed gateway for Azure sources locked down with private endpoints or VNet isolation.</p>
-          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
-        </a>
-
-        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/governance/governance-compliance-overview" target="_blank" rel="noopener noreferrer">
-          <div class="arch-card-eyebrow">Governance</div>
-          <h3>Governance &amp; compliance</h3>
-          <p>Workspaces, domains, sensitivity labels, lineage, and admin controls.</p>
-          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
-        </a>
-
-        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/security/security-overview" target="_blank" rel="noopener noreferrer">
-          <div class="arch-card-eyebrow">Security</div>
-          <h3>Security in Microsoft Fabric</h3>
-          <p>Identity, network security, data protection, and workload-level controls.</p>
-          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
-        </a>
-
-        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/get-started/microsoft-fabric-overview" target="_blank" rel="noopener noreferrer">
-          <div class="arch-card-eyebrow">Platform</div>
-          <h3>Microsoft Fabric overview</h3>
-          <p>A unified analytics platform spanning data engineering, warehousing, real-time, and BI.</p>
-          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
-        </a>
-      </div>
-    </div>
-  </section>
 
   <!-- =============================================
        HELP ME DECIDE  (Mirroring vs Copy Job vs Pipelines vs Eventstreams)
@@ -529,6 +343,194 @@
       </div>
       <!-- /DECIDER 2 -->
 
+    </div>
+  </section>
+
+  <!-- =============================================
+       FABRIC WORKLOADS
+       ============================================= -->
+  <section id="samples" class="section" aria-labelledby="samples-heading">
+    <div class="section-header">
+      <span class="section-eyebrow">Curated Collection</span>
+      <h2 id="samples-heading">Microsoft Fabric Workloads</h2>
+      <p>Every Fabric experience — Data Engineering, Data Factory, Data Warehouse, Real-Time Intelligence, Power BI, Data Science, and more — unified on OneLake.</p>
+    </div>
+
+    <!-- Filter bar -->
+    <div class="filter-bar" role="search" aria-label="Filter Fabric workloads">
+      <div class="search-wrap">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input
+          type="search"
+          id="search-input"
+          placeholder="Search workloads, scenarios, or tags (e.g. Spark, KQL, Copy Job)…"
+          aria-label="Search Fabric workloads"
+          autocomplete="off"
+        />
+      </div>
+      <div class="filter-chips" id="fabric-type-chips" role="group" aria-label="Filter by workload">
+        <!-- Chips rendered by JS -->
+      </div>
+    </div>
+
+    <!-- Workloads grid -->
+    <div class="fabric-grid" id="fabric-grid" aria-live="polite" aria-label="Microsoft Fabric workloads">
+      <!-- Cards rendered by JS -->
+    </div>
+  </section>
+
+  <!-- =============================================
+       RESOURCES (full-width band)
+       ============================================= -->
+  <section id="resources" aria-labelledby="resources-heading" style="background:var(--color-primary-light); padding: 4rem 0;">
+    <div class="resources-inner" style="max-width:1200px; margin:0 auto; padding:0 1.5rem;">
+      <div class="section-header">
+        <span class="section-eyebrow">Helpful Links</span>
+        <h2 id="resources-heading">Useful Resources</h2>
+        <p>Official Microsoft Learn docs, tutorials, certifications, REST APIs, the public roadmap, and community channels for Microsoft Fabric.</p>
+      </div>
+
+      <!-- Resource category chips -->
+      <div class="resource-categories" id="resource-category-chips" role="group" aria-label="Filter by resource category">
+        <!-- Chips rendered by JS -->
+      </div>
+
+      <!-- Resources grid -->
+      <div class="resources-grid" id="resources-grid" aria-live="polite" aria-label="Resources">
+        <!-- Cards rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       ARCHITECTURE (Microsoft Fabric reference docs)
+       ============================================= -->
+  <section id="architecture" class="arch-section" aria-labelledby="architecture-heading">
+    <div class="arch-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">Reference Architecture</span>
+        <h2 id="architecture-heading">Microsoft Fabric Architecture</h2>
+        <p>
+          Curated links to the official Microsoft Learn guidance for designing data solutions
+          on Microsoft Fabric — starting with the medallion lakehouse pattern on OneLake.
+        </p>
+      </div>
+
+      <!-- Medallion diagram -->
+      <figure class="medallion-diagram" aria-label="Medallion lakehouse architecture: Bronze, Silver, Gold layers on OneLake">
+        <div class="medallion-layer medallion-bronze">
+          <div class="medallion-badge">Bronze</div>
+          <div class="medallion-title">Raw</div>
+          <p>Land data exactly as it arrives — files, tables, streams. Preserve the source of truth.</p>
+        </div>
+        <div class="medallion-arrow" aria-hidden="true">→</div>
+        <div class="medallion-layer medallion-silver">
+          <div class="medallion-badge">Silver</div>
+          <div class="medallion-title">Enriched</div>
+          <p>Clean, conform, deduplicate, and join. Standardize formats and keys.</p>
+        </div>
+        <div class="medallion-arrow" aria-hidden="true">→</div>
+        <div class="medallion-layer medallion-gold">
+          <div class="medallion-badge">Gold</div>
+          <div class="medallion-title">Curated</div>
+          <p>Business-ready aggregates and marts powering Power BI, ML, and analytics.</p>
+        </div>
+        <figcaption>All three layers live as Delta tables in <strong>OneLake</strong>.</figcaption>
+      </figure>
+
+      <!-- Reference link cards -->
+      <div class="arch-grid">
+        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/onelake/onelake-medallion-lakehouse-architecture" target="_blank" rel="noopener noreferrer">
+          <div class="arch-card-eyebrow">Foundational</div>
+          <h3>Medallion lakehouse architecture on OneLake</h3>
+          <p>The recommended Bronze / Silver / Gold design pattern for Microsoft Fabric.</p>
+          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
+        </a>
+
+        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/onelake/onelake-overview" target="_blank" rel="noopener noreferrer">
+          <div class="arch-card-eyebrow">Storage</div>
+          <h3>What is OneLake?</h3>
+          <p>The single, tenant-wide data lake built into Fabric — one copy, many engines.</p>
+          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
+        </a>
+
+        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/fundamentals/decision-guide-data-store" target="_blank" rel="noopener noreferrer">
+          <div class="arch-card-eyebrow">Decision guide</div>
+          <h3>Choose a Fabric data store</h3>
+          <p>Lakehouse vs Warehouse vs KQL DB vs Power BI datamart — when to pick which.</p>
+          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
+        </a>
+
+        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview" target="_blank" rel="noopener noreferrer">
+          <div class="arch-card-eyebrow">Data engineering</div>
+          <h3>Lakehouse overview</h3>
+          <p>Files + tables on Delta Parquet, with Spark and SQL endpoints in a single item.</p>
+          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
+        </a>
+
+        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/data-warehouse/data-warehousing" target="_blank" rel="noopener noreferrer">
+          <div class="arch-card-eyebrow">Data warehousing</div>
+          <h3>Warehouse in Fabric</h3>
+          <p>The T-SQL data warehouse experience over OneLake — transactions and stored procs.</p>
+          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
+        </a>
+
+        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/get-started/direct-lake-overview" target="_blank" rel="noopener noreferrer">
+          <div class="arch-card-eyebrow">Power BI</div>
+          <h3>Direct Lake mode</h3>
+          <p>Read Delta tables straight from OneLake — import-like speed, DirectQuery-like freshness.</p>
+          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
+        </a>
+
+        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/data-factory/copy-job" target="_blank" rel="noopener noreferrer">
+          <div class="arch-card-eyebrow">Data Factory</div>
+          <h3>Copy Job</h3>
+          <p>Code-free ingestion with full and incremental patterns, plus broad connector coverage.</p>
+          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
+        </a>
+
+        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/data-factory/data-factory-overview" target="_blank" rel="noopener noreferrer">
+          <div class="arch-card-eyebrow">Data Factory</div>
+          <h3>Data pipelines &amp; Dataflows Gen2</h3>
+          <p>Orchestrate multi-step pipelines and low-code Power Query transformations.</p>
+          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
+        </a>
+
+        <a class="arch-card" href="https://learn.microsoft.com/en-us/data-integration/gateway/service-gateway-onprem" target="_blank" rel="noopener noreferrer">
+          <div class="arch-card-eyebrow">Connectivity</div>
+          <h3>On-premises data gateway</h3>
+          <p>Bridge Fabric / Power BI to data behind your corporate firewall.</p>
+          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
+        </a>
+
+        <a class="arch-card" href="https://learn.microsoft.com/en-us/data-integration/vnet/overview" target="_blank" rel="noopener noreferrer">
+          <div class="arch-card-eyebrow">Connectivity</div>
+          <h3>Virtual network (VNet) data gateway</h3>
+          <p>Managed gateway for Azure sources locked down with private endpoints or VNet isolation.</p>
+          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
+        </a>
+
+        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/governance/governance-compliance-overview" target="_blank" rel="noopener noreferrer">
+          <div class="arch-card-eyebrow">Governance</div>
+          <h3>Governance &amp; compliance</h3>
+          <p>Workspaces, domains, sensitivity labels, lineage, and admin controls.</p>
+          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
+        </a>
+
+        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/security/security-overview" target="_blank" rel="noopener noreferrer">
+          <div class="arch-card-eyebrow">Security</div>
+          <h3>Security in Microsoft Fabric</h3>
+          <p>Identity, network security, data protection, and workload-level controls.</p>
+          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
+        </a>
+
+        <a class="arch-card" href="https://learn.microsoft.com/en-us/fabric/get-started/microsoft-fabric-overview" target="_blank" rel="noopener noreferrer">
+          <div class="arch-card-eyebrow">Platform</div>
+          <h3>Microsoft Fabric overview</h3>
+          <p>A unified analytics platform spanning data engineering, warehousing, real-time, and BI.</p>
+          <span class="arch-card-cta">Read on Microsoft Learn ↗</span>
+        </a>
+      </div>
     </div>
   </section>
 
