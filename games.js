@@ -86,6 +86,12 @@ function handleDefinitionClick(definition) {
     return;
   }
 
+  // Remove "selected" class from all definitions
+  matchGame.querySelectorAll('.match-def').forEach(def => def.classList.remove('selected'));
+  
+  // Add "selected" class to this definition
+  definition.classList.add('selected');
+
   const isMatch = definition.dataset.for === selectedWorkload;
 
   if (isMatch) {
@@ -140,7 +146,7 @@ function resetMatchGame() {
   const counter = matchGame.querySelector('#match-counter');
   
   matchBtns.forEach(btn => btn.classList.remove('matched', 'active', 'correct', 'wrong'));
-  definitions.forEach(def => def.classList.remove('active', 'matched', 'correct', 'wrong'));
+  definitions.forEach(def => def.classList.remove('active', 'matched', 'correct', 'wrong', 'selected'));
   if (counter) {
     counter.textContent = '0/6 matched';
     counter.style.color = 'var(--color-primary)';

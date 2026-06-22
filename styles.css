@@ -2598,6 +2598,15 @@ img {
   border-color: var(--color-primary);
 }
 
+.match-def.selected {
+  opacity: 1;
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 600;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(17, 120, 101, 0.2);
+}
+
 .match-def.active {
   opacity: 1;
   background: var(--grad-fabric-ribbon);
@@ -2606,13 +2615,22 @@ img {
 }
 
 .match-btn.correct,
-.match-def.correct,
+.match-def.correct {
+  background: #1d7a45;
+  border-color: #1d7a45;
+  color: #fff;
+  opacity: 1;
+  font-weight: 600;
+}
+
 .match-btn.matched,
 .match-def.matched {
   background: #1d7a45;
   border-color: #1d7a45;
   color: #fff;
   opacity: 1;
+  font-weight: 600;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.3);
 }
 
 .match-btn.wrong,
@@ -2621,6 +2639,7 @@ img {
   border-color: #b42318;
   color: #fff;
   opacity: 1;
+  font-weight: 600;
 }
 
 .match-score {
