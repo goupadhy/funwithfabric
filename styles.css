@@ -2434,3 +2434,185 @@ img {
 .resource-card {
   animation: fadeInUp 0.35s ease both;
 }
+/* =============================================
+   FUN ZONE GAMES
+   ============================================= */
+.fun-game-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.game-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.game-desc {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* Workload Match Game */
+.match-game {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.match-pairs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+.match-item {
+  width: 100%;
+}
+
+.match-btn {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-size: 0.9rem;
+}
+
+.match-btn:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.match-btn.matched {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.match-definitions {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.match-def {
+  padding: 0.7rem;
+  background: var(--color-primary-light);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  color: var(--color-text);
+  margin: 0;
+  opacity: 0.5;
+  transition: all var(--transition);
+}
+
+.match-def.active {
+  opacity: 1;
+  background: var(--grad-fabric-ribbon);
+  color: #fff;
+  font-weight: 600;
+}
+
+.match-score {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--color-border);
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+/* Speed Click Game */
+.speed-game {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.speed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+  background: var(--color-primary-light);
+  border-radius: var(--radius-md);
+  font-weight: 700;
+}
+
+.speed-timer {
+  font-size: 1.4rem;
+  color: var(--color-primary);
+}
+
+.speed-score {
+  color: var(--color-text);
+  font-size: 0.9rem;
+}
+
+.speed-prompt {
+  text-align: center;
+  padding: 1rem;
+  background: var(--color-surface);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  color: var(--color-primary);
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.speed-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+.speed-choice-btn {
+  padding: 0.9rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all var(--transition);
+}
+
+.speed-choice-btn:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.speed-choice-btn.correct {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.speed-choice-btn.wrong {
+  background: #fdd;
+  border-color: #f88;
+}
+
+.speed-actions {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+}
+
+.btn-small {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+}
+
