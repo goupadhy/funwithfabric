@@ -5,6 +5,63 @@
 (function () {
   const FEED_URL = "https://community.fabric.microsoft.com/oxcrx34285/rss/board?board.id=fbc_fabricupdatesblogs";
   const MAX_EPISODES = 8;
+  const FETCH_TIMEOUT_MS = 10000;
+  const FEED_SOURCES = [
+    {
+      name: "direct",
+      buildUrl: function () {
+        return FEED_URL;
+      },
+      extractText: function (text) {
+        return text;
+      },
+    },
+    {
+      name: "allorigins-raw",
+      buildUrl: function () {
+        return "https://api.allorigins.win/raw?url=" + encodeURIComponent(FEED_URL);
+      },
+      extractText: function (text) {
+        return text;
+      },
+    },
+    {
+      name: "allorigins-json",
+      buildUrl: function () {
+        return "https://api.allorigins.win/get?url=" + encodeURIComponent(FEED_URL);
+      },
+      extractText: function (text) {
+        const parsed = JSON.parse(text);
+        return parsed && parsed.contents ? parsed.contents : "";
+      },
+    },
+    {
+      name: "jina-reader",
+      buildUrl: function () {
+        return "https://r.jina.ai/http://community.fabric.microsoft.com/oxcrx34285/rss/board?board.id=fbc_fabricupdatesblogs";
+      },
+      extractText: function (text) {
+        return text;
+      },
+    },
+  ];
+  const FALLBACK_EPISODES = [
+    {
+      title: "Fabric June 2026 Feature Summary",
+      link: "https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Fabric-June-2026-Feature-Summary/ba-p/5190690",
+      description: "Monthly roundup of major Microsoft Fabric updates and new capabilities.",
+    },
+    {
+      title: "Monitoring weather conditions in real-time using AI and Fabric Eventstream",
+      link: "https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Monitoring-weather-conditions-in-real-time-using-AI-and-Fabric/ba-p/5197906",
+      description: "How to build real-time weather monitoring with Eventstream and AI skills.",
+    },
+    {
+      title: "Introducing Rayfin: A new AI-first way to build, deploy, and govern application backends",
+      link: "https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Introducing-Rayfin-A-new-AI-first-way-to-build-deploy-and-govern/ba-p/5191676",
+      description: "New AI-first backend development approach announced for Fabric scenarios.",
+    },
+  ];
 
   const state = {
     episodes: [],
@@ -34,32 +91,91 @@
   }
 
   async function fetchFeedText() {
-    const direct = fetch(FEED_URL, { method: "GET" }).then((r) => {
-      if (!r.ok) {
-        throw new Error("Direct RSS fetch failed");
-      }
-      return r.text();
-    });
+  function fetchWithTimeout(url, timeoutMs) {
+    return new Promise(function (resolve, reject) {
+      const timer = setTimeout(function () {
+        reject(new Error("Fetch timed out"));
+      }, timeoutMs);
 
-    const viaProxy = fetch(
-      "https://api.allorigins.win/raw?url=" + encodeURIComponent(FEED_URL),
-      { method: "GET" }
-    ).then((r) => {
-      if (!r.ok) {
-        throw new Error("Proxy RSS fetch failed");
-      }
-      return r.text();
+      fetch(url, { method: "GET" })
+        .then(function (response) {
+          clearTimeout(timer);
+          resolve(response);
+        })
+        .catch(function (err) {
+          clearTimeout(timer);
+          reject(err);
+        });
     });
+  }
 
-    try {
-      return await direct;
-    } catch (_err) {
-      return viaProxy;
+  async function fetchFeedTextFromSource(source) {
+    const url = source.buildUrl();
+    const response = await fetchWithTimeout(url, FETCH_TIMEOUT_MS);
+
+    if (!response.ok) {
+      throw new Error("RSS fetch failed for source: " + source.name);
     }
+
+    const rawText = await response.text();
+    const extracted = source.extractText(rawText);
+    if (!extracted || !extracted.trim()) {
+      throw new Error("RSS source returned empty content: " + source.name);
+    }
+
+    return extracted;
+  }
+
+  async function fetchFeedText() {
+    let lastError = null;
+
+    for (const source of FEED_SOURCES) {
+      try {
+        return await fetchFeedTextFromSource(source);
+      } catch (err) {
+        lastError = err;
+      }
+    }
+
+    throw lastError || new Error("All feed sources failed");
   }
 
   function parseEpisodes(xmlText) {
     const parser = new DOMParser();
+    const xml = parser.parseFromString(xmlText, "application/xml");
+
+    // RSS parser errors surface as <parsererror> nodes.
+    if (xml.querySelector("parsererror")) {
+      throw new Error("Feed content was not valid XML");
+    }
+
+    const items = Array.from(xml.querySelectorAll("item")).slice(0, MAX_EPISODES);
+
+    return items
+      .map((item) => {
+        const title = sanitizeText(item.querySelector("title")?.textContent);
+        const link = sanitizeText(item.querySelector("link")?.textContent);
+        const description = sanitizeText(item.querySelector("description")?.textContent);
+
+        if (!title) {
+          return null;
+        }
+
+        return {
+          title,
+          link,
+          description,
+        };
+      })
+      .filter(Boolean);
+  }
+
+  function loadFallbackEpisodes() {
+    state.episodes = FALLBACK_EPISODES.slice(0, MAX_EPISODES);
+    state.currentIndex = 0;
+    renderEpisodes();
+    updateStatus("Live feed unavailable. Loaded fallback Fabric playlist.");
+  }
     const xml = parser.parseFromString(xmlText, "application/xml");
     const items = Array.from(xml.querySelectorAll("item")).slice(0, MAX_EPISODES);
 
@@ -223,7 +339,7 @@
       state.episodes = parseEpisodes(feedText);
 
       if (!state.episodes.length) {
-        updateStatus("No recent blog posts found in the feed.");
+        loadFallbackEpisodes();
         return;
       }
 
@@ -236,7 +352,12 @@
         speakCurrentEpisode();
       }
     } catch (_err) {
-      updateStatus("Could not load the Fabric Updates feed right now.");
+      loadFallbackEpisodes();
+
+      if (!state.startedAutoPlay && state.episodes.length) {
+        state.startedAutoPlay = true;
+        speakCurrentEpisode();
+      }
     }
   }
 
