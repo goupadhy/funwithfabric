@@ -56,6 +56,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---- Highlight active nav link on scroll ----
   highlightNavOnScroll();
+
+  // ---- Initialize games ----
+  if (typeof initMatchGame === 'function') {
+    initMatchGame();
+  }
+  if (typeof initSpeedGame === 'function') {
+    initSpeedGame();
+  }
 });
 
 /* =============================================
